@@ -8,6 +8,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -22,8 +23,21 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={inter.variable}>
-			<body className={``}>{children}</body>
+		<html
+			lang="en"
+			className={`dark ${inter.variable}`}
+			suppressHydrationWarning
+		>
+			<body className={``}>
+				<ThemeProvider
+					attribute={"class"}
+					defaultTheme="dark"
+					enableSystem={false}
+					storageKey="key"
+				>
+					{children}
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }
